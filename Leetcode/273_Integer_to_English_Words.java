@@ -31,16 +31,12 @@ public String upToThousantToWords(int num) {
 }
 
 public String numberToWords(int num) {
-    if (num == 0) {
-        return "Zero";
-    }
     ArrayList<String> parts = new ArrayList<>();
-    if (num / 1000000000 > 0) parts.add(upToThousantToWords(num / 1000000000) + " Billion");
-    num = num % 1000000000;
-    if (num / 1000000 > 0) parts.add(upToThousantToWords(num / 1000000) + " Million");
-    num = num % 1000000;
-    if (num / 1000 > 0) parts.add(upToThousantToWords(num / 1000) + " Thousand");
-    num = num % 1000;
-    if (num > 0) parts.add(upToThousantToWords(num));
-    return stringifySpacedNumber(parts);
+    String[] units = { "", " Thousand", " Million", " Billion" };
+    for (int i = units.length - 1, val = num; i >= 0; i--) {
+        int divider = (int) Math.pow(1000,i);
+        if (val / divider > 0) parts.add(upToThousantToWords(val / divider) + units[i]);
+        val = val % divider;
+    }
+    return (parts.size() != 0)? stringifySpacedNumber(parts) : "Zero";
 }
