@@ -1,12 +1,12 @@
-public static int removeDuplicates(int[] nums) {
+public int removeDuplicates(int[] nums) {
     if (nums == null || nums.length == 0) {
         return 0;
     }
-    int uniqueIndex = 1, currentElem = nums[0];
+    int uniqueIndex = 0;
     for (int i = 1; i < nums.length; i++) {
-        if (nums[i] != currentElem) {
-            nums[uniqueIndex++] = currentElem = nums[i];
+        if (nums[i] != nums[uniqueIndex]) {
+            nums[++uniqueIndex] = nums[i];
         }
     }
-    return uniqueIndex;
+    return uniqueIndex + 1;
 }
