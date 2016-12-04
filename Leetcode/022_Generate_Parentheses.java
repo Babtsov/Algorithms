@@ -1,15 +1,15 @@
 public void helper(int charsLeft, StringBuilder b, int balance, List<String> solution) {
-    if (balance < 0) return; // we have more ')' than '(', so backtrack...
+    if (balance < 0 || balance > charsLeft) return; // we have more ')' than '(' or too many '(', so backtrack...
     if (charsLeft == 0) {
-        if (balance == 0) solution.add(b.toString());
+        solution.add(b.toString());
         return;
     }
-    b.append("("); // push '(' 
+    b.append("(");
     helper(charsLeft - 1, b, balance + 1, solution);
-    b.setLength(b.length() - 1); // pop '('
-    b.append(")"); // push ')'
+    b.setLength(b.length() - 1);
+    b.append(")");
     helper(charsLeft - 1, b, balance - 1, solution);
-    b.setLength(b.length() - 1); // pop ')'
+    b.setLength(b.length() - 1);
 }
 public List<String> generateParenthesis(int n) {
     List<String> solution = new ArrayList<>();
